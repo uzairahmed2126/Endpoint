@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Player</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      /* height: 230px; */
+      /* background: #f9f9f9; */
+      /* height: 200vh; */
+      background-image: linear-gradient(rgba(3, 8, 3, 0.486),
+          #228622a2,
+          rgba(255, 0, 0, 0.575));
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      /* height: 100vh; */
+    }
+
+    .inner-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 30px;
+      margin: 20px;
+      outline: none;
+      border: none;
+      background-image: linear-gradient(rgba(122, 85, 92, 0.801),
+          rgba(193, 156, 201, 0.856),
+          #120c247e,
+          rgba(74, 8, 90, 0.664));
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px 3px #000;
+      font-size: 20px;
+      display: grid;
+      grid-template-columns: repeat(1, 60px);
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn:hover {
+      transition: all 0.3s ease-in-out;
+      /* filter: brightness(1.1); */
+      /* color: #fff; */
+      /* scale: 1.1; */
+      transform: translate(-0%, -5%) scale(1.1);
+    }
+
+    .fa-play {
+      margin: 10px;
+      /* position: absolute; */
+      top: 100%;
+      border-radius: 10%;
+      /* padding: 10px; */
+      background-color: #00000033;
+      padding: 0px;
+      cursor: pointer;
+    }
+
+    .fa-pause {
+      margin: 10px;
+      /* position: absolute; */
+      top: 100%;
+      border-radius: 10%;
+      /* padding: 10px; */
+      background-color: #00000033;
+      padding: 0px;
+      cursor: pointer;
+    }
+
+    .fa-play:hover,
+    .fa-pause:hover {
+      scale: 1.4;
+      cursor: pointer;
+    }
+
+    /* Styling the audio container */
+    /* .audio-container {
+    width: 300px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  } */
+
+    /* Styling the audio player */
+
+    /* Styling the audio controls */
+    audio::-webkit-media-controls-panel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: linear-gradient(rgba(230, 207, 211, 0.801),
+          rgba(201, 194, 156, 0.856),
+          #a49fb37e,
+          rgba(154, 216, 154, 0.664));
+
+      border-radius: 3px;
+    }
+
+    /* Styling individual audio controls */
+    audio::-webkit-media-controls-play-button {
+      background-color: #00000048;
+      color: #fff;
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    /* audio::-webkit-media-controls-volume-slider,
+  audio::-webkit-media-controls-timeline,
+  audio::-webkit-media-controls-current-time-display,
+  audio::-webkit-media-controls-time-remaining-display,
+  audio::-webkit-media-controls-mute-button {
+  } */
+
+    /* .fa-play{
+    cursor: pointer;
+}
+.fa-pause {
+    cursor: pointer;
+} */
+    @media (max-width: 1000px) {
+      .showcase-form {
+        width: 340px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="inner-container">
+    </div>
+  </div>
+</body>
+<script>
+
+  const Kits = [
+    'Surah Al-Fatiha',
+    'Surah Al-Ikhlaas',
+    'Surah Al-Falaq',
+    'Surah An-Naas',
+  ]
+  const containerEl = document.querySelector('.container')
+  let isOn = false
+  Kits.forEach((kit) => {
+    // Creat elements
+    const btnEl = document.createElement('button')
+    const span = document.createElement('span')
+    span.setAttribute('class', 'fa-solid fa-play')
+    btnEl.classList.add('btn')
+    btnEl.innerText = kit
+    containerEl.appendChild(btnEl)
+    btnEl.appendChild(span)
+    const audioEl = document.createElement('audio')
+    audioEl.src = 'sounds/' + kit + '.mp3'
+    audioEl.setAttribute('controls', '')
+    containerEl.appendChild(audioEl)
+    btnEl.addEventListener('click', () => {
+      isOn = !isOn
+      if (isOn) {
+        audioEl.play()
+        span.setAttribute('class', 'fa-solid fa-pause')
+        if (audioEl.ended) {
+          audioEl.ended()
+          span.setAttribute('class', 'fa-solid fa-play')
+        }
+      } else {
+        audioEl.pause()
+        span.setAttribute('class', 'fa-solid fa-play')
+      }
+    })
+  })
+
+</script>
+
+</html>
